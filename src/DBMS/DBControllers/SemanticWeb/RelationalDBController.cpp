@@ -1,4 +1,4 @@
-#include "DbController.h"
+#include "../../../../include/DBMS/DbControllers/Relational/RelationalDbController.h"
 
 /*
 * In file, I calculate lines and position as index
@@ -6,15 +6,15 @@
 */
 
 // Public methods
-vertexIdType DbController::GetLastWroteVertexId() const {
+vertexIdType DBMS::DBController::DbController::GetLastWroteVertexId() const {
 	return m_dbMetadata.lastVertexWroteId;
 }
 
-vertexIdType DbController::GetLastWroteNodeId() const {
+vertexIdType DBMS::DBController::DbController::GetLastWroteNodeId() const {
 	return m_dbMetadata.lastNodeWroteId;
 }
 
-bool DbController::CreateStructuredDbFile() {
+bool DBMS::DBController::DbController::CreateStructuredDbFile() {
 	// Return m_bufferedSemanticWeb to structure of basic elements
 	m_bufferedToWriteSemanticWeb.Clear();
 	m_bufferedToWriteSemanticWeb.fullByBasicElements();
@@ -62,7 +62,7 @@ bool DbController::CreateStructuredDbFile() {
 	return true;
 }
 
-bool DbController::OpenDb() {	
+bool DBMS::DBController::DbController::OpenDb() {
 	m_dbStream.open(m_dbFileName, ios_base::in | ios_base::binary);
 	
 	if (!m_dbStream.is_open()) {
@@ -75,11 +75,11 @@ bool DbController::OpenDb() {
 	return true;
 }
 
-bool DbController::DbIsOpened() const {
+bool DBMS::DBController::DbController::DbIsOpened() const {
 	return m_dbStream.is_open();
 }
 
-void DbController::CloseDataBase(const bool toSync) {
+void DBMS::DBController::DbController::CloseDataBase(const bool toSync) {
 	if (toSync) {
 		UnloadChangesIntoDBFile();
 	}
@@ -89,12 +89,12 @@ void DbController::CloseDataBase(const bool toSync) {
 	m_dbStream.close();
 }
 
-void DbController::DeleteDataBaseFile() {
+void DBMS::DBController::DbController::DeleteDataBaseFile() {
 	remove(m_dbFileName.c_str());
 }
 
 
-void DbController::UnloadChangesIntoDBFile() {
+void DBMS::DBController::DbController::UnloadChangesIntoDBFile() {
 	// Clear m_bufferedSemanticWeb for reduce the size
 	ClearNonWritableElements();
 
@@ -166,11 +166,11 @@ void DbController::UnloadChangesIntoDBFile() {
 	}
 }
 
-void DbController::OperationVertexInBuffer(Vertex* const vertex, const OperationParametrs operation) {
+void DBMS::DBController::DbController::OperationVertexInBuffer(Vertex* const vertex, const OperationParametrs operation) {
 	OperationVertexesInBuffer(vector<Vertex*> {vertex}, operation);
 }
 
-void DbController::WriteBufferedVertexiesAtCurrentPosition(vertexIdType &newLastWroteVertexId, size_t &newSecondStructuresStartLineIndex, fstream &dbFstream) {
+void DBMS::DBController::DbController::WriteBufferedVertexiesAtCurrentPosition(vertexIdType &newLastWroteVertexId, size_t &newSecondStructuresStartLineIndex, fstream &dbFstream) {
 	// Sorted in Operations, data for reading and writing
 	vector<vertexIdType> vertexesAdd = m_bufferedToWriteSemanticWeb.GetNode(SWObjectVertexForAddToDb)->GetVertexIdsVector();
 	vector<vertexIdType> vertexesChange = m_bufferedToWriteSemanticWeb.GetNode(SWObjectVertexForChangeToDb)->GetVertexIdsVector();
@@ -283,7 +283,7 @@ void DbController::WriteBufferedVertexiesAtCurrentPosition(vertexIdType &newLast
 	}
 }
 
-void DbController::WriteBufferedNodesAtCurrentPosition(vertexIdType &newLastWroteNodeId, fstream &dbFstream) {
+void DBMS::DBController::DbController::WriteBufferedNodesAtCurrentPosition(vertexIdType &newLastWroteNodeId, fstream &dbFstream) {
 	size_t addIndex = 0, changeIndex = 0, delIndex = 0; // Universal index for vectors
 
 	// Sorted in Operations, data for reading and writing
@@ -405,7 +405,7 @@ void DbController::WriteBufferedNodesAtCurrentPosition(vertexIdType &newLastWrot
 	}
 }
 
-void DbController::OperationVertexesInBuffer(const vector<Vertex*>& vertexes, const OperationParametrs operation) {
+void DBMS::DBController::DbController::OperationVertexesInBuffer(const vector<Vertex*>& vertexes, const OperationParametrs operation) {
 	Node* const addNode = m_bufferedToWriteSemanticWeb.GetNode(SWObjectVertexForAddToDb);
 	Node* const changeNode = m_bufferedToWriteSemanticWeb.GetNode(SWObjectVertexForChangeToDb);
 	Node* const deleteNode = m_bufferedToWriteSemanticWeb.GetNode(SWObjectVertexForRemoveToDb);
@@ -496,7 +496,7 @@ void DbController::OperationVertexesInBuffer(const vector<Vertex*>& vertexes, co
 	deleteNode->SortSubNodesAsVertexIdsVector();
 }
 
-Vertex* DbController::ReadVertex(vertexIdType vertexId) {
+Vertex* DBMS::DBController::DbController::ReadVertex(vertexIdType vertexId) {
 	Vertex* vertex = nullptr;
 
 	vector<vertexIdType> vertexIds = { vertexId };
@@ -510,7 +510,7 @@ Vertex* DbController::ReadVertex(vertexIdType vertexId) {
 	return vertex;
 }
 
-vector<Vertex*> DbController::ReadVertexes(vector<vertexIdType> vertexIds) {
+vector<Vertex*> DBMS::DBController::DbController::ReadVertexes(vector<vertexIdType> vertexIds) {
 	vector<Vertex*> vertexes;
 
 	if (!DbIsOpened()) {
@@ -611,7 +611,7 @@ vector<Vertex*> DbController::ReadVertexes(vector<vertexIdType> vertexIds) {
 	return vertexes;
 }
 
-vector<vertexIdType>* DbController::ReadVertexIdsWithText(string text) {
+vector<vertexIdType>* DBMS::DBController::DbController::ReadVertexIdsWithText(string text) {
 	vector<vertexIdType>* vertexIds = new vector<vertexIdType>();
 
 	// TODO: Searching in m_bufferedSemanticWeb
@@ -644,11 +644,11 @@ vector<vertexIdType>* DbController::ReadVertexIdsWithText(string text) {
 	return vertexIds;
 }
 
-void DbController::OperationNodeInBuffer(Node* const node, const OperationParametrs operation) {
+void DBMS::DBController::DbController::OperationNodeInBuffer(Node* const node, const OperationParametrs operation) {
 	OperationNodesInBuffer(vector<Node*> {node}, operation);
 }
 
-void DbController::UndoAllChangesForVertexies(const vector<vertexIdType>& vertexIds) {
+void DBMS::DBController::DbController::UndoAllChangesForVertexies(const vector<vertexIdType>& vertexIds) {
 	m_bufferedToWriteSemanticWeb.GetNode(SWObjectVertexForAddToDb)->RemoveVertexIdsVectorId(vertexIds);
 	m_bufferedToWriteSemanticWeb.GetNode(SWObjectVertexForChangeToDb)->RemoveVertexIdsVectorId(vertexIds);
 	m_bufferedToWriteSemanticWeb.GetNode(SWObjectVertexForRemoveToDb)->RemoveVertexIdsVectorId(vertexIds);
@@ -658,7 +658,7 @@ void DbController::UndoAllChangesForVertexies(const vector<vertexIdType>& vertex
 	}
 }
 
-void DbController::OperationNodesInBuffer(const vector<Node*>& nodes, const OperationParametrs operation) {
+void DBMS::DBController::DbController::OperationNodesInBuffer(const vector<Node*>& nodes, const OperationParametrs operation) {
 	vector<vertexIdType> addNodeIdList = 
 		m_bufferedToWriteSemanticWeb.GetNode(SWObjectNodeForAddToDb)->GetVertexIdsVector();
 	vector<vertexIdType> deleteNodeIdList = 
@@ -746,7 +746,7 @@ void DbController::OperationNodesInBuffer(const vector<Node*>& nodes, const Oper
 	deleteNode->SortSubNodesAsVertexIdsVector();
 }
 
-Node* DbController::ReadNode(const vertexIdType nodeId) {
+Node* DBMS::DBController::DbController::ReadNode(const vertexIdType nodeId) {
 	Node* node = nullptr;
 
 	vector<vertexIdType> nodeIds = { nodeId };
@@ -760,7 +760,7 @@ Node* DbController::ReadNode(const vertexIdType nodeId) {
 	return node;
 }
 
-vector<Node*> DbController::ReadNodes(vector<vertexIdType> nodeIds) {
+vector<Node*> DBMS::DBController::DbController::ReadNodes(vector<vertexIdType> nodeIds) {
 	vector<Node*> nodes;
 
 	if (!DbIsOpened() || nodeIds.size() == 0) {
@@ -853,7 +853,7 @@ vector<Node*> DbController::ReadNodes(vector<vertexIdType> nodeIds) {
 	return nodes;
 }
 
-void DbController::UndoAllChangesForNodes(const vector<vertexIdType>& nodeIds) {
+void DBMS::DBController::DbController::UndoAllChangesForNodes(const vector<vertexIdType>& nodeIds) {
 	m_bufferedToWriteSemanticWeb.GetNode(SWObjectNodeForAddToDb)->RemoveVertexIdsVectorId(nodeIds);
 	m_bufferedToWriteSemanticWeb.GetNode(SWObjectNodeForRemoveToDb)->RemoveVertexIdsVectorId(nodeIds);
 
@@ -863,7 +863,7 @@ void DbController::UndoAllChangesForNodes(const vector<vertexIdType>& nodeIds) {
 }
 
 
-vector<vertexIdType> DbController::ReadNodeIdsWithVertexIds(vector<vertexIdType>& vertexIds) {
+vector<vertexIdType> DBMS::DBController::DbController::ReadNodeIdsWithVertexIds(vector<vertexIdType>& vertexIds) {
 	vector<vertexIdType> nodeIds;
 	
 	if (!DbIsOpened()) {
@@ -921,7 +921,7 @@ vector<vertexIdType> DbController::ReadNodeIdsWithVertexIds(vector<vertexIdType>
 	return nodeIds;
 }
 
-void DbController::OperationSubNodesInBuffer(const vertexIdType nodeId, vector<SubNode>& subNodes, const OperationParametrs operation) {
+void DBMS::DBController::DbController::OperationSubNodesInBuffer(const vertexIdType nodeId, vector<SubNode>& subNodes, const OperationParametrs operation) {
 	bool isListedNode = false;
 
 	{
@@ -1066,18 +1066,18 @@ void DbController::OperationSubNodesInBuffer(const vertexIdType nodeId, vector<S
 	}
 }
 
-void DbController::UndoAllChangesForNode(const vertexIdType nodeId) {
+void DBMS::DBController::DbController::UndoAllChangesForNode(const vertexIdType nodeId) {
 	// TODO: Make
 }
 
-void DbController::UndoAllChangesForSubNode(const vertexIdType nodeId, const vector<vertexIdType>& subNodeIds) {
+void DBMS::DBController::DbController::UndoAllChangesForSubNode(const vertexIdType nodeId, const vector<vertexIdType>& subNodeIds) {
 	// TODO: Make
 }
 
 
 // Private methods
 
-void DbController::ClearNonWritableElements() {
+void DBMS::DBController::DbController::ClearNonWritableElements() {
 	Node* checkingNode = nullptr;
 	vector<vertexIdType> removeElementsIdList;
 
@@ -1121,7 +1121,7 @@ void DbController::ClearNonWritableElements() {
 }
 
 
-void DbController::ReadMetadataAtCurrentPosition() {
+void DBMS::DBController::DbController::ReadMetadataAtCurrentPosition() {
 	// Place the pointer at the beginning of the file
 	m_dbStream.seekg(0, ios_base::beg);
 
@@ -1144,7 +1144,7 @@ void DbController::ReadMetadataAtCurrentPosition() {
 	m_dbMetadata.lastNodeWroteId = lastNodeWroteId;
 }
 
-Vertex* DbController::ReadVertexAtCurrentPosition() {
+Vertex* DBMS::DBController::DbController::ReadVertexAtCurrentPosition() {
 	Vertex* vertex = new Vertex();
 
 	vertexIdType vertexId = 0;
@@ -1159,7 +1159,7 @@ Vertex* DbController::ReadVertexAtCurrentPosition() {
 	return vertex;
 }
 
-Node* DbController::ReadNodeAtCurrentPosition() {
+Node* DBMS::DBController::DbController::ReadNodeAtCurrentPosition() {
 	Node* node = new Node();
 	
 	vector<SubNode>* subNodes = new vector<SubNode>();
@@ -1190,7 +1190,7 @@ Node* DbController::ReadNodeAtCurrentPosition() {
 }
 
 
-void DbController::WriteMetadataAtCurrentPosition(DbMetadata& dbMetadata, fstream& dbFstream) {
+void DBMS::DBController::DbController::WriteMetadataAtCurrentPosition(DbMetadata& dbMetadata, fstream& dbFstream) {
 	dbFstream.seekp(0, ios_base::beg);
 
 	dbFstream.write((char*)&dbMetadata.firstStructuresCount, sizeof(dbMetadata.firstStructuresCount));
@@ -1200,7 +1200,7 @@ void DbController::WriteMetadataAtCurrentPosition(DbMetadata& dbMetadata, fstrea
 	dbFstream.write((char*)&dbMetadata.lastNodeWroteId, sizeof(dbMetadata.lastNodeWroteId));
 }
 
-void DbController::WriteVertexAtCurrentPosition(const Vertex &vertex, fstream &dbFstream) {
+void DBMS::DBController::DbController::WriteVertexAtCurrentPosition(const Vertex &vertex, fstream &dbFstream) {
 	vertexIdType vertexId = vertex.GetId();
 	string text = vertex.GetText();
 
@@ -1209,7 +1209,7 @@ void DbController::WriteVertexAtCurrentPosition(const Vertex &vertex, fstream &d
 	dbFstream << text.c_str();
 }
 
-void DbController::WriteNodeAtCurrentPosition(const Node &node, fstream &dbFstream) {
+void DBMS::DBController::DbController::WriteNodeAtCurrentPosition(const Node &node, fstream &dbFstream) {
 	vertexIdType nodeId = node.GetNodeId();
 
 	dbFstream.write((char*)&nodeId, sizeof(nodeId));
@@ -1225,7 +1225,7 @@ void DbController::WriteNodeAtCurrentPosition(const Node &node, fstream &dbFstre
 	dbFstream.write((char*)&subNodesEnd, sizeof(subNodesEnd));
 }
 
-void DbController::WriteSubNodeAtCurrentPosition(const SubNode &subNode, fstream &dbFstream) {
+void DBMS::DBController::DbController::WriteSubNodeAtCurrentPosition(const SubNode &subNode, fstream &dbFstream) {
 	vertexIdType subNodeId = subNode.GetId(), firstVerId = subNode.GetFirstVertexId(),
 		seconVerId = subNode.GetSecondVertexId();
 	uint8_t own = subNode.GetOwn();

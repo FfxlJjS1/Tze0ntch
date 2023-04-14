@@ -2,9 +2,9 @@
 #include <string>
 #include<fstream>
 
-#include "CommonTypeDef.h"
-
 using std::string, std::fstream;
+
+typedef size_t vertexIdType;
 
 struct Vertex final {
 private:

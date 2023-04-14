@@ -1,4 +1,4 @@
-#include "RecursionParser.h"
+#include "../../../include/Interpretator/InterpretatorStages/RecursionParser.h"
 
 void RecursionParser::MakeRecourseParsing(const vertexIdType startModuleId) {
     vector<vertexIdType> modulesForParsing;

@@ -1,8 +1,6 @@
 #pragma once
 #include <algorithm>
 
-#include "CommonTypeDef.h"
-
 #include "ReservedSemanticObjects.h"
 
 #include "vertex.h"

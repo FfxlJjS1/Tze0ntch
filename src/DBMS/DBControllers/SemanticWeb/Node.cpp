@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "../../../../include/DBMS/DbControllers/Relational/Node.h"
 
 vertexIdType Node::GetNodeId() const{
     return m_nodeId;

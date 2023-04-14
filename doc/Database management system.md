@@ -22,8 +22,7 @@
 ## Methods
 **Private:**
 - GetDatabaseId(string databaseName);
-- GetDatabaseName(int databaseId);
-- CheckDatabasesForIds() - check exists database by their id.
+- GetDatabaseName(int databaseId).
 
 **Public:**
 - CreateDatabase(string databaseName);

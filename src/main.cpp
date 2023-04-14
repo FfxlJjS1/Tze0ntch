@@ -4,6 +4,8 @@ int main(int argc, char* argv[]) {
 	system("chcp 1251");
 	setlocale(LC_ALL, "");
 
+	// TODO: Reading parametrs from ini file. Directory for DBMS, configuration for NetworkInterface
+
 	shared_ptr<DbController> dbController = std::make_shared<DbController>();
 
 	if (!dbController->OpenDb()) {

@@ -2,8 +2,6 @@
 #include <cstdint>
 #include<fstream>
 
-#include "CommonTypeDef.h"
-
 using std::fstream;
 
 // Class for containt a pair id of tho nodes and them similary

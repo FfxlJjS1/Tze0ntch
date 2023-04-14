@@ -4,8 +4,6 @@
 #include <vector>
 #include<fstream>
 
-#include "CommonTypeDef.h"
-
 #include "subNode.h"
 
 using std::vector, std::function, std::fstream;

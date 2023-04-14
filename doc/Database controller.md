@@ -37,11 +37,4 @@
 
 **Public:**
 - GetDatabaseId();
-- Relation database controller:
-	- SQLRequest(string sqlRequest).
-- Key-value database controller:
-	- AddValue(int id, string text);
-	- ReadValue(int id);
-	- WriteValue(int id, string text);
-	- RemoveValue(int id).
 - flushCache(bool wtireToFile) - except customizable database controller;

@@ -1,4 +1,4 @@
-#include "Interpretator.h"
+#include "../../../include/Interpretator/Interpretator.h"
 
 void Interpretator::Run() {
 	container = m_startModuleMethodTable->GetParent();

@@ -1,4 +1,4 @@
-#include "SemanticWeb.h"
+#include "../../../../include/DBMS/DbControllers/Relational/SemanticWeb.h"
 
 vertexIdType SemanticWeb::GetLastBasicElementsId() const {
 	return LastBasicElementsId;
