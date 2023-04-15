@@ -2,7 +2,8 @@
 #include <string>
 #include<fstream>
 
-using std::string, std::fstream;
+using std::string;
+using std::fstream;
 
 typedef size_t vertexIdType;
 

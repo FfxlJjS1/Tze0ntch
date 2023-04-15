@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.8)
 
 project("Tze0ntch")
 
-# set(CMAKE_CXX_STANDARD 17)
+# find_package(Boost 1.40.0 REQUIRED system)
+set(CMAKE_CXX_STANDARD 20)
 
 set(include_dir include)
 set(src_dir src)
@@ -15,19 +16,23 @@ set(DBMS_src_dir ${src_dir}/DBMS)
 set(DBMS_HEADER_FILES 
 		${DBMS_header_dir}/DBMS.h
 		${DBMS_header_dir}/DbControllers/DbController.h
+		${DBMS_header_dir}/DbControllers/System/SystemDbController.h
 		${DBMS_header_dir}/DbControllers/Customizable/CustomizableDbController.h
-		${DBMS_header_dir}/DbControllers/Relational/Vertex.h
-		${DBMS_header_dir}/DbControllers/Relational/SubNode.h
-		${DBMS_header_dir}/DbControllers/Relational/Node.h
-		${DBMS_header_dir}/DbControllers/Relational/ReservedSemanticObjects.h
-		${DBMS_header_dir}/DbControllers/Relational/SemanticWeb.h
-		${DBMS_header_dir}/DbControllers/Relational/RelationalDbController.h)
+		${DBMS_header_dir}/DbControllers/KeyValue/Vertex.h
+		${DBMS_header_dir}/DbControllers/KeyValue/SubNode.h
+		${DBMS_header_dir}/DbControllers/KeyValue/Node.h
+		${DBMS_header_dir}/DbControllers/KeyValue/ReservedSemanticObjects.h
+		${DBMS_header_dir}/DbControllers/KeyValue/SemanticWeb.h
+		${DBMS_header_dir}/DbControllers/KeyValue/KeyValueDbController.h)
 
 set(DBMS_SRC_FILES
 		${DBMS_src_dir}/DBMS.cpp
-		${DBMS_src_dir}/DbControllers/SemanticWeb/Node.cpp
-		${DBMS_src_dir}/DbControllers/SemanticWeb/SemanticWeb.cpp
-		${DBMS_src_dir}/DbControllers/SemanticWeb/RelationalDBController.cpp)
+		${DBMS_src_dir}/DbControllers/DbController.cpp
+		${DBMS_src_dir}/DbControllers/System/SystemDbController.cpp
+		${DBMS_src_dir}/DbControllers/Customizable/CustomizableDbController.cpp
+		${DBMS_src_dir}/DbControllers/KeyValue/Node.cpp
+		${DBMS_src_dir}/DbControllers/KeyValue/SemanticWeb.cpp
+		${DBMS_src_dir}/DbControllers/KeyValue/KeyValueDbController.cpp)
 		
 
 ##########################################################################

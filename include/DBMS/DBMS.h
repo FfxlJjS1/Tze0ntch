@@ -1,48 +1,68 @@
 #pragma once
 
 #include <vector>
+#include <map>
 #include <string>
+#include <filesystem>
 
 #include "DbControllers/DbController.h"
+#include "DbControllers/System/SystemDbController.h"
+#include "DbControllers/Customizable/CustomizableDbController.h"
+#include "DbControllers/KeyValue/KeyValueDbController.h"
 
 namespace DBMS {
 	using std::string;
 	using std::vector;
+	using SystemDbController::dbStructTypes;
 
 	class DBMS final {
 	private:
-		static vector<std::pair<dbIdType, string>> the_database_id_name;
-		static vector<DbController> the_db_controllers;
+		vector<std::pair<dbIdType, string>> my_database_id_name;
+		std::map<dbIdType, DbController*> my_db_controllers;
+		string my_databases_folder;
 
 		/*
 		* Get id of the database has name as databaseName
 		* Get it from system database but if it doesn't exist return 0
 		*/
-		dbIdType get_database_id(string database_name);
+		SystemDbController::SystemDbController* get_sys_db_contrl();
+		
 
-		string get_database_name(dbIdType database_id);
+		DbController* create_database_controller(dbIdType database_id, string database_name, dbStructTypes database_struct_type);
 
 	public:
-		void create_database(string database_name);
+		DBMS(string databases_folder);
 
 
-		DbController get_database_controller(string database_name);
-
-		DbController get_database_controller(dbIdType database_id);
+		void create_database(string database_name, dbStructTypes database_struct_type);
 
 
-		void include_database(dbIdType database_id, string database_name);
+		/*
+		* Cannot return system database controller (id 1), it'll return nullptr
+		* If database controller doesn't created will create new db controller for such database structure type
+		*/
+		DbController* get_database_controller(dbIdType database_id);
 
-		void include_database(string database_name);
+		/*
+		* Cannot return system database controller (id 1), it'll return nullptr
+		* If database controller doesn't created will create new db controller for such database structure type
+		*/
+		DbController* get_database_controller(string database_name);
+		
+
+		bool include_database_into_sys_db(string database_file_name, dbStructTypes database_struct_type);
 
 
-		void exclude_database(dbIdType database_id);
+		void exclude_database_from_sys_db(dbIdType database_id);
 
-		void exclude_database(string database_name);
+		void exclude_database_from_sys_db(string database_name);
 
 
-		void delete_database(dbIdType database_id);
+		void exclude_and_delete_database_file(dbIdType database_id);
 
-		void delete_database(string database_name);
+		void exclude_and_delete_database_file(string database_name);
+
+
+		~DBMS();
 	};
 }

@@ -1,34 +1,33 @@
 #pragma once
 
-#include <filesystem>
-
 #include "../DbController.h"
 
 namespace DBMS {
 	namespace CustomizableDbController {
-		using std::ios_base, std::streampos;
+		using std::streampos;
 
-		class CustomizableDbController : DbController final {
+		class CustomizableDbController final : public DbController {
 		public:
+			CustomizableDbController(dbIdType database_id, std::string database_name);
+
+
 			void open_file(bool only_for_read = true, bool make_empty_file = false);
 
 
 			bool is_open();
 
 
-			void seek_to_point(streamposs point, ios_base point_relate_position);
+			void seek_to_put(streampos point, ios_base::seekdir point_relate_position);
+
+			streampos tell_put();
 
 
-			streamposs tell_point();
+			void seek_to_get(streampos point, ios_base::seekdir point_relate_position);
+
+			streampos tell_get();
 
 
-			void seek_to_g(streamposs point, ios_base);
-
-
-			streamposs tell_g();
-
-
-			string read_until_symbol(char symbol);
+			std::string read_until_symbol(char symbol);
 
 
 			void read(char** object, size_t size_of);
@@ -37,6 +36,9 @@ namespace DBMS {
 
 
 			void close_file();
+
+
+			~CustomizableDbController();
 		};
 	}
 }

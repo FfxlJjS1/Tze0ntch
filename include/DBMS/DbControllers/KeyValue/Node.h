@@ -6,7 +6,9 @@
 
 #include "subNode.h"
 
-using std::vector, std::function, std::fstream;
+using std::vector;
+using std::function;
+using std::fstream;
 
 class Node final {
 private:

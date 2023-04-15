@@ -10,10 +10,7 @@
 #include "SemanticWeb.h"
 
 namespace DBMS {
-	namespace RelationalDBController {
-		using std::ios;
-		using std::ios_base;
-		using std::fstream;
+	namespace KeyValueDBController {
 		using std::sort;
 
 		// A opened database metadates
@@ -32,7 +29,7 @@ namespace DBMS {
 			Deleting
 		};
 
-		class RelationalDbController : DbController final {
+		class KeyValueDbController final : public DbController  {
 		private:
 			fstream m_dbStream;
 			string m_dbFileName;
@@ -40,15 +37,15 @@ namespace DBMS {
 			SemanticWeb m_bufferedToWriteSemanticWeb;
 
 		public:
-			DbController() : m_bufferedToWriteSemanticWeb(new SemanticWeb(true)) {
+			KeyValueDbController() : m_bufferedToWriteSemanticWeb(new SemanticWeb(true)) {
 				m_dbFileName = "DB.mdd";
 			};
 
-			DbController(const string dbFileName) : DbController() {
+			KeyValueDbController(const string dbFileName) : DbController() {
 				m_dbFileName = dbFileName;
 			}
 
-			~DbController() {
+			~KeyValueDbController() {
 				if (m_dbStream.is_open()) {
 					m_dbStream.close();
 				}

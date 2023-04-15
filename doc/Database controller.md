@@ -26,7 +26,7 @@
 ## Abstract DB Controller
 
 ### Variables
-- DatabaseId is a unique identificatory integer of database. Id 0 is reserved for system database;
+- DatabaseId is a unique identificatory integer of database. Id 1 is reserved for system database;
 - DatabaseStream is a file stream by which can execute reading and writing data in database file;
 - DatabaseCache is a specific class of database cache. For every concrete DB Controller class realized for DB structure. May be template (C++).
 
