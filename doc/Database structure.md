@@ -5,6 +5,7 @@
 - [[System database structure]];
 - [[Algorithm database structure]];
 - [[Key-value database structure]];
+- [[Semantic web with indexing database structure]];
 - [[Relational database structure]].
 
 [[Database]]

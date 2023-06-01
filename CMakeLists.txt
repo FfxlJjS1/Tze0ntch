@@ -18,21 +18,22 @@ set(DBMS_HEADER_FILES
 		${DBMS_header_dir}/DbControllers/DbController.h
 		${DBMS_header_dir}/DbControllers/System/SystemDbController.h
 		${DBMS_header_dir}/DbControllers/Customizable/CustomizableDbController.h
-		${DBMS_header_dir}/DbControllers/KeyValue/Vertex.h
-		${DBMS_header_dir}/DbControllers/KeyValue/SubNode.h
-		${DBMS_header_dir}/DbControllers/KeyValue/Node.h
-		${DBMS_header_dir}/DbControllers/KeyValue/ReservedSemanticObjects.h
-		${DBMS_header_dir}/DbControllers/KeyValue/SemanticWeb.h
-		${DBMS_header_dir}/DbControllers/KeyValue/KeyValueDbController.h)
+		${DBMS_header_dir}/DbControllers/SemanticWebWithIndexing/Vertex.h
+		${DBMS_header_dir}/DbControllers/SemanticWebWithIndexing/SubNode.h
+		${DBMS_header_dir}/DbControllers/SemanticWebWithIndexing/Node.h
+		${DBMS_header_dir}/DbControllers/SemanticWebWithIndexing/SemanticWeb.h
+		${DBMS_header_dir}/DbControllers/SemanticWebWithIndexing/SemanticWebWithIndexingDbController.h)
 
 set(DBMS_SRC_FILES
 		${DBMS_src_dir}/DBMS.cpp
 		${DBMS_src_dir}/DbControllers/DbController.cpp
 		${DBMS_src_dir}/DbControllers/System/SystemDbController.cpp
 		${DBMS_src_dir}/DbControllers/Customizable/CustomizableDbController.cpp
-		${DBMS_src_dir}/DbControllers/KeyValue/Node.cpp
-		${DBMS_src_dir}/DbControllers/KeyValue/SemanticWeb.cpp
-		${DBMS_src_dir}/DbControllers/KeyValue/KeyValueDbController.cpp)
+		${DBMS_src_dir}/DbControllers/SemanticWebWithIndexing/Vertex.cpp
+		${DBMS_src_dir}/DbControllers/SemanticWebWithIndexing/SubNode.cpp
+		${DBMS_src_dir}/DbControllers/SemanticWebWithIndexing/Node.cpp
+		${DBMS_src_dir}/DbControllers/SemanticWebWithIndexing/SemanticWeb.cpp
+		${DBMS_src_dir}/DbControllers/SemanticWebWithIndexing/SemanticWebWithIndexingDbController.cpp)
 		
 
 ##########################################################################

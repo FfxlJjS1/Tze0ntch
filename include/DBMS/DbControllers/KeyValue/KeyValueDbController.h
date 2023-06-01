@@ -10,7 +10,7 @@
 #include "SemanticWeb.h"
 
 namespace DBMS {
-	namespace KeyValueDBController {
+	namespace KeyValueDbController {
 		using std::sort;
 
 		// A opened database metadates
@@ -50,6 +50,10 @@ namespace DBMS {
 					m_dbStream.close();
 				}
 			}
+
+
+			static void init_database_file(string database_file_path);
+
 
 			// Get last wrote vertex's id to db file
 			vertexIdType GetLastWroteVertexId() const;

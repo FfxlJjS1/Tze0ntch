@@ -17,7 +17,6 @@ namespace DBMS {
 
 	class DBMS final {
 	private:
-		vector<std::pair<dbIdType, string>> my_database_id_name;
 		std::map<dbIdType, DbController*> my_db_controllers;
 		string my_databases_folder;
 
@@ -27,13 +26,18 @@ namespace DBMS {
 		*/
 		SystemDbController::SystemDbController* get_sys_db_contrl();
 		
-
+		/*
+		* If map has't got database controller with such id it will create database controller for database file and add it to my_db_controllers
+		*/
 		DbController* create_database_controller(dbIdType database_id, string database_name, dbStructTypes database_struct_type);
 
 	public:
 		DBMS(string databases_folder);
 
 
+		/*
+		* Only create database file without creating database controller
+		*/
 		void create_database(string database_name, dbStructTypes database_struct_type);
 
 
@@ -50,7 +54,7 @@ namespace DBMS {
 		DbController* get_database_controller(string database_name);
 		
 
-		bool include_database_into_sys_db(string database_file_name, dbStructTypes database_struct_type);
+		bool include_database_into_sys_db(string database_name, dbStructTypes database_struct_type);
 
 
 		void exclude_database_from_sys_db(dbIdType database_id);

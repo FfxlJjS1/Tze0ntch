@@ -8,7 +8,10 @@ namespace DBMS {
 
 		class CustomizableDbController final : public DbController {
 		public:
-			CustomizableDbController(dbIdType database_id, std::string database_name);
+			CustomizableDbController(dbIdType database_id, std::string database_file_path);
+
+
+			static void init_database_file(std::string database_file_path);
 
 
 			void open_file(bool only_for_read = true, bool make_empty_file = false);
@@ -38,7 +41,7 @@ namespace DBMS {
 			void close_file();
 
 
-			~CustomizableDbController();
+			void flush_cache() override;
 		};
 	}
 }

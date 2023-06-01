@@ -1202,7 +1202,7 @@ void DBMS::DBController::DbController::WriteMetadataAtCurrentPosition(DbMetadata
 
 void DBMS::DBController::DbController::WriteVertexAtCurrentPosition(const Vertex &vertex, fstream &dbFstream) {
 	vertexIdType vertexId = vertex.GetId();
-	string text = vertex.GetText();
+	string text = vertex.GetText();	
 
 	dbFstream.write((char*)&vertexId, sizeof(vertexId));
 

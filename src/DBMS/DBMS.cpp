@@ -8,10 +8,57 @@ namespace DBMS {
 	}
 
 
+	DbController* DBMS::create_database_controller(dbIdType database_id, string database_name, dbStructTypes database_struct_type) {
+		if (database_id == 0
+			|| my_db_controllers.contains(database_id)
+			|| database_name == ""
+			|| database_struct_type == dbStructTypes::UndefinedDatabaseController) {
+			return nullptr;
+		}
+
+		DbController* dbController = nullptr;
+
+		if (database_struct_type == dbStructTypes::SystemDatabaseController && database_id == 1) {
+			dbController = new SystemDbController::SystemDbController(database_name);
+		}
+		else if (database_struct_type == dbStructTypes::CustomizableDatabaseController) {
+			dbController = new CustomizableDbController::CustomizableDbController(database_id, database_name);
+		}
+		else if (database_struct_type == dbStructTypes::KeyValueDatabaseController) {
+			dbController = new KeyValueDBController::KeyValueDbController(database_id, database_name);
+		}
+		else {
+			return nullptr;
+		}
+
+		my_db_controllers.insert({ database_id, dbController });
+
+		return dbController;
+	}
+		
+
 	DBMS::DBMS(string database_folder) {
 		my_databases_folder = database_folder;
 
 		my_db_controllers.insert({ 1, new SystemDbController::SystemDbController(my_databases_folder + "\\__system_db.mdd") });
+	}
+
+
+	void DBMS::create_database(string database_name, dbStructTypes database_struct_type) {
+		string database_file_path = my_databases_folder + "\\" + database_name + ".mdd";
+
+		switch (database_struct_type)
+		{
+		case SystemDbController::SystemDatabaseController:
+			SystemDbController::SystemDbController::init_database_file(database_file_path);
+			break;
+		case SystemDbController::CustomizableDatabaseController:
+			CustomizableDbController::CustomizableDbController::init_database_file(database_file_path);
+			break;
+		case SystemDbController::KeyValueDatabaseController:
+			KeyValueDBController::KeyValueDbController::init_database_file(database_file_path);
+			break;
+		}
 	}
 
 

@@ -1,7 +1,7 @@
 #include "../../../include/DBMS/DbControllers/DbController.h"
 
 namespace DBMS {
-	DbController::DbController(dbIdType database_id, std::string database_name) {
+	DbController::DbController(const dbIdType database_id, const std::string database_name) {
 		my_datase_id = database_id;
 		my_database_file_name = database_name;
 	}
@@ -19,5 +19,12 @@ namespace DBMS {
 
 	dbIdType DbController::get_database_id() const {
 		return my_datase_id;
+	}
+
+
+	DbController::~DbController() {
+		if (my_database_stream.is_open()) {
+			close_database_file();
+		}
 	}
 }

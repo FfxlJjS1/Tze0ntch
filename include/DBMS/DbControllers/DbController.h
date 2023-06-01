@@ -24,7 +24,7 @@ namespace DBMS {
 		void close_database_file();
 
 	public:
-		DbController(dbIdType database_id, std::string database_name);
+		DbController(const dbIdType database_id, const std::string database_name);
 
 
 		dbIdType get_database_id() const;

@@ -35,7 +35,10 @@ namespace DBMS {
 			sys_db_record read_record_from_db_file();
 
 		public:
-			SystemDbController(string database_file_name);
+			SystemDbController(string database_file_path);
+
+
+			static void init_database_file(string database_file_path);
 
 
 			dbIdType get_database_id(string database_name) const;
@@ -61,9 +64,6 @@ namespace DBMS {
 
 
 			void flush_cache() override;
-
-
-			~SystemDbController();
 		};
 	}
 }

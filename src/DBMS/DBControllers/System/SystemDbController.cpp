@@ -37,7 +37,7 @@ namespace DBMS {
 		}
 
 
-		SystemDbController::SystemDbController(string database_file_name) : DbController(1, database_file_name) {
+		SystemDbController::SystemDbController(string database_file_path) : DbController(1, database_file_path) {
 			open_database_file(ios_base::binary | ios::in | ios::out);
 
 			read_records_from_db_file();
@@ -178,11 +178,6 @@ namespace DBMS {
 			}
 
 			my_database_stream.flush();
-		}
-
-
-		SystemDbController::~SystemDbController() {
-			close_database_file();
 		}
 	}
 }

@@ -20,3 +20,6 @@ Perhaps, class and structure will be combined to one element.
 ## OOP
 Private and public class elements.
 Without polymorphism and inheritance.
+
+## Database type identification number
+Add before all data in database file number describe current database file struct

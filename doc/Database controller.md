@@ -4,7 +4,7 @@
 
 **Concrete database controllers:**
 - [[System database controller]];
-- [[Key-value database controller]];
+- [[Semantic web database with indexing controller]];
 - [[Relational database controller]];
 - [[Customizable database controller]].
 
