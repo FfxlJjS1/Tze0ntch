@@ -1,8 +1,7 @@
 # Contents
-- [[Database structure]];
 - [[Standard databases]].
 
-[[Database controller]]
+[[Database structure]]
 
 # Info
 **Database** is a file  that stores data in structured format, designed for efficient storage, retrieval, and management of data.

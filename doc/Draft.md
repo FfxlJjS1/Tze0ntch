@@ -23,3 +23,19 @@ Without polymorphism and inheritance.
 
 ## Database type identification number
 Add before all data in database file number describe current database file struct
+
+## Start mode of fixing database problems
+Add specific start mode of backend, where you can fix some database problems, including system and algorithm databases, such as incorrect written data, error in main algorithms and etc.
+
+## Autosave database data mode
+Add specific argument for start backend with autosave database setting, where database will autosave database changes to temp database file every n seconds.
+
+
+## Logger mode
+Add specific argument for start backend with logger.
+
+
+## Methods for undo marks for set, remove vertexes, nodes or sub_nodes in SemanticWebWithIndexingDbController
+
+
+## Separate large construction into atomic actions in parser or optimizer

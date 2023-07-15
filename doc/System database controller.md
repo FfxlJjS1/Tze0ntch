@@ -1,12 +1,10 @@
 # Content
-
-- [[Database]];
 - [[System database structure]].
 
 [[Database controller]]
 
 # Info
-**System database controller** is a controller, which stores records about database files and their flags.
+**System database controller** is a [[Database controller|controller]], which stores records about database files and their flags.
 
 ## Principles of this controller
 - It's concrete realization of [[Database controller|abstract database controller]];

@@ -7,81 +7,112 @@
 
 Program consists of modules of code.
 
-A module have global area that can have code for importing module; define global variable, structure.
+A module has global area that can have code for importing module; define global variable, structure.
 
 ## Language syntaxes
 \<Module\>:
 ```
-{[<Module importino>] | [<Variable definition>] | [<Method definition>] | [<Structure difinition>] | [...]]}
+[<Module importing>] | [<Variable definition>] | [<Method definition>] | [<Structure difinition>] | [...]]
 ```
 
 \<Module importing\>:
 ```
-{using "{<Identifier>}"}
+using "{<Identifier>}"
 ```
 
 \<Variable definition\>:
 ```
-{<Data type> <Identifier> [<Assignment definition>] [, <Variable assigment>];}
+<Data type> <Identifier> [<Assignment definition>] [, <Variable assigment>];
 ```
 
 \<Method definition\>:
 ```
-{<Method head definition> <Method body definition>}
+<Method head definition> <Method body definition>
+```
+
+\<Method head definition\>:
+```
+```
+
+\<Method body definition\>:
+```
 ```
 
 \<Structure definition\>:
 ```
-{<Struct head definition> <Struct body definition>}
+<Struct head definition> <Struct body definition>
 ```
 
-\<Assignment definition\>
+\<Struct head definition\>:
 ```
-{= {<Identifier> | <Literal>}}
+```
+
+\<Struct body definition\>:
+```
+```
+
+\<Assignment definition\>:
+```
+= {<Data> | <Operation>}
+```
+
+\<Data\>:
+```
+<Identifier> | <Literal>
 ```
 
 \<Data type\>:
 ```
-{<Elementary data type> | <Identifier> /*Struct identifier*/}
+<Elementary data type> | <Identifier> /*Struct identifier*/
+```
+
+\<Elementary data type\>:
+```
+int16 | int32 | int64 | intInf |
+uint16 | uint32 | uint64 |
+double |
+char8 |
+uchar8 |
+string
 ```
 
 \<Identifier\>:
 ```
-{{_ | <Number | String>} [...]}
+{_ | <Char>} [<Identifier>]
 ```
 
 \<Literal\>:
 ```
-{Number | Text | Symbol | Boolean}
+<Number> | <Text> | <Symbol> | <Boolean>
 ```
 
 \<Number\>:
 ```
-{0-9...[, 0-9...]}
+0-9...[, 0-9...]
 ```
 
 \<Text\>:
 ```
-{\"{<String>}\"}
+"{<String>}"
 ```
 
 \<Symbol\>:
 ```
-{'{<Char>}'}
+'{<Char>}'
 ```
 
 \<String\>:
 $$
-x \in Chars \times Chars
+x \in Chars^n
 $$
 
 \<Boolean\>:
 ```
-{true | false}
+true | false
 ```
 
 Code example:
-```js
+```cpp
 using "Basic DBMS"
 
 /*

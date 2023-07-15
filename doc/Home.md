@@ -10,9 +10,9 @@
 - [[Draft]].
 
 # Info
-**Tze0ntch** is a open-source system of multiuser client-server DBMS with interpretator, include metaprogramming.
+**Tze0ntch** is a open-source multiuser client-server DBMS with interpretator, including metaprogramming.
 
-It's program for storing and automatic process data by algorithms, and update algorithms, if it is necessary.
+It's program for storing and automatication process data by algorithms, and update algorithms, if it's necessary.
 
 **Functions:**
 - Store data in files or RAM for access him;

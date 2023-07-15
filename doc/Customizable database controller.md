@@ -1,4 +1,5 @@
 # Contents
+- [[Customizable database structure]]
 
 [[Database controller]]
 

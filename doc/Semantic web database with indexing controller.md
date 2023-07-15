@@ -1,5 +1,4 @@
 # Content
-- [[Semantic web with indexing database]]
 - [[Semantic web with indexing database structure]].
 
 [[Database controller]]

@@ -1,11 +1,10 @@
 # Contents
 **Standard databases:**
-- [[Algorithm database]];
-- [[System database]].
+- [[System database]];
+- [[Module database]].
 
 **Links:**
-- [[Database]];
-- [[Database structure]].
+- [[Database]].
 
 # Info
 **Standard databases** are databases for specific works.

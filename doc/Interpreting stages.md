@@ -1,7 +1,7 @@
 # Contents
 **Stages:**
-- [[Recursion parsing interpreting stage]];
-- [[Semantic checking and interpreting stage]];
+- [[Recursion parsing stage]];
+- [[Syntax and semantic checking stage]];
 - [[Optimizing stage]];
 - [[Interpreting stage]];
 - [[Clearing stage]].

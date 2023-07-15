@@ -1,9 +1,9 @@
 # Contents
-- [[Database]];
-- [[Database cache]].
+- [[Database structure]].
 
 **Concrete database controllers:**
 - [[System database controller]];
+- [[Module database controller]];
 - [[Semantic web database with indexing controller]];
 - [[Relational database controller]];
 - [[Customizable database controller]].
@@ -14,27 +14,25 @@
 **Database controller (DB Controller)** is module for controlling one [[Database|database file]].
 
 ## Principles of database controller
-- To **constructor send database file name**, for open database, **and id**, for identification;
+- **Send to constructor database file name**, for open database, **and id**, for identification;
 - Database **controller have cache of database** for temp store of data for more fast access to data;
 - **Database can be opened by only one database controller in the moment**;
 - OpenDatabase() and CloseDatabase() are **private methods for DBMS**;
-- Structures of database **can be relation, key-value and other**;
-- Can use **SQL for a database with the structures** example relation;
-- Database **may have one of the several database structures**;
-- DB Controller **have abstract class and concrete classes** for more abstract code.
+- Concrete realization of database controller may have a [[Database cache|database cache]] class for temp storing data from database file for more faster access to data.
+- DB Controller **have abstract class and concrete classes** for more abstract code;
+- With one database controller **can work only one \[client\] interpreter stream**.
 
 ## Abstract DB Controller
 
 ### Variables
-- DatabaseId is a unique identificatory integer of database. Id 1 is reserved for system database;
-- DatabaseStream is a file stream by which can execute reading and writing data in database file;
-- DatabaseCache is a specific class of database cache. For every concrete DB Controller class realized for DB structure. May be template (C++).
+- DatabaseId is a unique identificatory integer of database. Id 1 is reserved for [[System database controller|system database controller]];
+- DatabaseStream is a file stream by which can be executed reading and writing data in database file.
 
 ### Methods
 **Private:**
-- OpenDatabase();
-- CloseDatabase().
+- OpenDatabase() - only open database stream;
+- CloseDatabase() - only close database stream.
 
 **Public:**
 - GetDatabaseId();
-- flushCache(bool wtireToFile) - except customizable database controller;
+- FlushCache(bool wtireToFile) - except customizable database controller;
