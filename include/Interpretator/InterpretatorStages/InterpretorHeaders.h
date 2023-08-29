@@ -1,5 +1,4 @@
 #pragma once
-#include <mutex>
+#include "../ExpressionAndVariables/VariableClasses.h"
 
-#include "LineActionClasses.h"
-#include "VariableClasses.h"
+#include "../LineActions/LineActionClasses.h"

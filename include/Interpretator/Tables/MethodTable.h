@@ -8,101 +8,105 @@
 
 #include "Variable.h"
 
-using std::vector, std::string;
+namespace Interpretator {
+	namespace Tables {
+		using std::vector, std::string;
 
-class MethodTable final : public ContainerElementTable {
-private:
-	string m_methodName = "";
-	Variable* m_returnVariableType = nullptr;
-	vector <Variable*> m_parametrs;
-	vector <LineAction*> m_lineActions;
+		using ExpressionAndVariables::Variable, ExpressionAndVariables::VariableType;
+		using LineActions::LineAction;
 
-public:
-	MethodTable(const string& methodName) noexcept : m_methodName(methodName) {};
+		class MethodTable final : public ContainerElementTable {
+		private:
+			string my_method_name = "";
+			Variable* my_return_variable_type = nullptr;
+			vector <Variable*> my_parametrs;
+			vector <LineAction*> my_line_actions;
 
-	MethodTable(const string& methodName,
-		Variable* returnVariableType,
-		vector<Variable*> parametrs) noexcept
-		: m_methodName(methodName),
-		m_returnVariableType(returnVariableType),
-		m_parametrs(parametrs) {};
+		public:
+			MethodTable(const string& method_name) : my_method_name(method_name) {};
 
-	string GetMethodName() const noexcept {
-		return m_methodName;
-	}
+			MethodTable(const string& method_name,
+				Variable* return_variable_type,
+				vector<Variable*> parametrs)
+				: m_methodName(method_name),
+				my_return_variable_type(return_variable_type),
+				my_parametrs(parametrs) {};
 
-	void SetReturnVariableType(Variable*& returnVarType) noexcept {
-		m_returnVariableType = returnVarType;
-	}
+			string get_method_name() const {
+				return my_method_name;
+			}
 
-	Variable*& GetReturnVariableType() noexcept {
-		return m_returnVariableType;
-	}
+			void set_return_variable_type(Variable*& return_var_type) {
+				my_return_variable_type = return_var_type;
+			}
 
-	void AddParametr(Variable*& parametrType) {
-		m_parametrs.push_back(parametrType);
-	}
+			Variable*& get_return_variable_type() {
+				return my_return_variable_type;
+			}
 
-	vector<Variable*>& GetParametrs() noexcept {
-		return m_parametrs;
-	}
+			void add_parametr(Variable*& parametr_type) {
+				my_parametrs.push_back(parametr_type);
+			}
 
-	size_t GetParametrsCount() const noexcept {
-		return m_parametrs.size();
-	}
+			vector<Variable*>& get_parametrs() {
+				return my_parametrs;
+			}
 
-	bool IsParametrsEqualArguments(const vector<Variable*>& arguments) {
-		if (m_parametrs.size() != arguments.size()) {
-			return false;
-		}
+			size_t get_parametrs_count() const {
+				return m_parametrs.size();
+			}
 
-		for (size_t index = 0; index < m_parametrs.size(); index++) {
-			VariableType paramType = m_parametrs[index]->GetVariableType();
-
-			if (paramType != VariableType::AnyType) {
-				if (!m_parametrs[index]->IsEqualVarStructures(arguments[index])) {
+			bool is_parametrs_equal_arguments(const vector<Variable*>& arguments) {
+				if (my_parametrs.size() != arguments.size()) {
 					return false;
 				}
+
+				for (size_t index = 0; index < my_parametrs.size(); index++) {
+					VariableType param_type = my_parametrs[index]->get_variable_type();
+
+					if (param_type != VariableType::AnyType) {
+						if (!my_parametrs[index]->is_equal_var_structures(arguments[index])) {
+							return false;
+						}
+					}
+				}
+
+				return true;
 			}
-		}
 
-		return true;
+			vector<LineAction*>& get_line_action_vector() {
+				return my_line_actions;
+			}
+
+			vector<LineAction*>* get_line_actions_link() {
+				return &my_line_actions;
+			}
+
+			void add_line_action(LineAction*& line_action) {
+				my_line_actions.push_back(line_action);
+			}
+
+			void remove_last_line_actions(int count_to_remove) {
+				for (size_t index = my_line_actions.size() - 1;
+					index >= my_line_actions.size() - count_to_remove - 1;
+					index--) {
+					delete my_line_actions[index];
+					my_line_actions.pop_back();
+				}
+			}
+
+
+			~MethodTable() {
+				delete my_return_variable_type;
+
+				for (Variable* parametr : my_parametrs) {
+					delete parametr;
+				}
+
+				for (LineAction* line_act : my_line_actions) {
+					delete line_act;
+				}
+			}
+		};
 	}
-
-	vector<LineAction*>& GetLineActionVector() noexcept {
-		return m_lineActions;
-	}
-
-	vector<LineAction*>* GetLineActionsLink() noexcept {
-		return &m_lineActions;
-	}
-
-	void AddLineAction(LineAction*& lineAction) {
-		m_lineActions.push_back(lineAction);
-	}
-
-	void RemoveLastLineActions(int countToRemove) {
-		for (size_t index = m_lineActions.size() - 1;
-			index >= m_lineActions.size() - countToRemove - 1;
-			index--) {
-			delete m_lineActions[index];
-			m_lineActions.pop_back();
-		}
-	}
-
-	bool operator==(const string methodName) noexcept {
-		return m_methodName == methodName;
-	}
-
-	~MethodTable() {
-		delete m_returnVariableType;
-
-		for (Variable* parametr : m_parametrs) {
-			delete parametr;
-		}
-
-		for (LineAction* lineAct : m_lineActions) {
-			delete lineAct;
-		}
-	}
-};
+}

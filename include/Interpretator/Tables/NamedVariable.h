@@ -1,63 +1,69 @@
 #pragma once
 #include <string>
 
-#include "LinkToVariable.h"
+#include "../ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/LinkToVariable.h"
 
-using std::string;
+namespace Interpretator {
+	namespace ExpressionAndVariables {
+		namespace ElementaryVariableTypes {
+			using std::string;
 
-class ContainerVariable final : public LinkToVariable {
-private:
-	string m_name = "";
-	Variable* m_unsignedByte = nullptr;
+			class ContainerVariable final : public LinkToVariable {
+			private:
+				string my_name = "";
+				Variable* my_var = nullptr;
 
-public:
-	ContainerVariable() : LinkToVariable(VariableType::NamedVariableType) {}
+			public:
+				ContainerVariable() : LinkToVariable(VariableType::NamedVariableType) {}
 
-	ContainerVariable(string name, Variable* variable) : ContainerVariable() {
-		m_name = name;
-		m_unsignedByte = variable;
-	}
+				ContainerVariable(string name, Variable* variable) : ContainerVariable() {
+					my_name = name;
+					my_var = variable;
+				}
 
-	void SetName(string name) {
-		m_name = name;
-	}
+				void set_name(string name) {
+					my_name = name;
+				}
 
-	string GetName() {
-		return m_name;
-	}
+				string get_name() {
+					return my_name;
+				}
 
-	void SetVariable(Variable* variable) {
-		m_unsignedByte = variable;
-	}
+				void set_var(Variable* variable) {
+					my_var = variable;
+				}
 
-	Variable* GetVariable() {
-		return m_unsignedByte;
-	}
+				Variable* get_var() {
+					return my_var;
+				}
 
-	Variable* Clone() const override {
-		return new ContainerVariable(m_name, m_unsignedByte->Clone());
-	}
+				Variable* clone() const override {
+					return new ContainerVariable(my_name, my_var->clone());
+				}
 
-	bool IsEqualVarStructures(Variable* stVar) const override {
-		if (stVar->GetVariableType() != VariableType::NamedVariableType) {
-			return false;
+				bool is_equal_var_structures(Variable* st_var) const override {
+					if (st_var->get_var_type() != VariableType::NamedVariableType) {
+						return false;
+					}
+
+					ContainerVariable* cont_var = static_cast<ContainerVariable*>(st_var);
+
+					if (my_name != cont_var->get_name()
+						|| !my_var->is_equal_var_structures(cont_var->get_var())) {
+						return false;
+					}
+
+					return true;
+				}
+
+				bool operator==(string name) {
+					return my_name == name;
+				}
+
+				~ContainerVariable() {
+					delete my_var;
+				}
+			};
 		}
-
-		ContainerVariable* contVar = static_cast<ContainerVariable*>(stVar);
-
-		if (m_name != contVar->GetName()
-			|| !m_unsignedByte->IsEqualVarStructures(contVar->GetVariable())) {
-			return false;
-		}
-
-		return true;
 	}
-
-	bool operator==(string name) {
-		return m_name == name;
-	}
-
-	~ContainerVariable() {
-		delete m_unsignedByte;
-	}
-};
+}

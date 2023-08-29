@@ -1,18 +1,23 @@
 #pragma once
-class ContainerTable;
 
-class ContainerElementTable {
-protected:
-	ContainerTable* m_parent = nullptr;
+namespace Interpretator {
+	namespace Tables {
+		class ContainerTable;
 
-public:
-	ContainerTable*& GetParent() noexcept {
-		return m_parent;
+		class ContainerElementTable {
+		protected:
+			ContainerTable* my_parent = nullptr;
+
+		public:
+			ContainerTable* get_parent() {
+				return my_parent;
+			}
+
+			void set_parent(ContainerTable* parent) {
+				my_parent = parent;
+			}
+		};
 	}
-
-	void SetParent(ContainerTable*& parent) noexcept {
-		m_parent = parent;
-	}
-};
+}
 
 #include "ContainerTable.h"

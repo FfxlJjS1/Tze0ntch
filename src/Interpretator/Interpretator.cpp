@@ -1,38 +1,29 @@
 #include "../../include/Interpretator/Interpretator.h"
 
-#ifdef UNIT_TESTS
-void IIS::RunExecute(string request, string addText) {
-	m_dbController->OperationVertexesInBuffer(
-		vector<Vertex*> {
-		&Vertex(SWObjectInputUserRequest, request),
-			& Vertex(SWObjectAdditionalToUserRequest, addText),
-			&Vertex(SWObjectMainModuleTextId, addText)
-	}, OperationParametrs::Changing);
+namespace Interpretator {
+	Interpretator(shared_ptr<DBMS> dbms, shared_ptr<NetworkInterface> network_interface)
+		: my_dbms(dbms),
+		my_network_interface(network_interface) {}
 
-	RunInterpret();
-}
-#endif // UNIT_TESTS
+	void Interpretator::run_interpreting() {
+		vector<ModuleTable*> tables;
+		MethodTable* start_module_method_table = nullptr;
 
-void IIS::RunInterpret() {
-	vector<ModuleTable*> tables;
-	MethodTable* startModuleMethodTable = nullptr;
+		// Parsing start module
+		{
+			RecursionParser recur_parsing_stage(tables, my_dbms, interpretator_proccessing_code);
 
-	// Парсинг запускающего модуля
-	{
-		RecursionParser parser(tables, m_dbController);
+			recur_parsing_stage.MakeRecourseParsing(my_request_start_module_id);
 
-		parser.MakeRecourseParsing(m_requestStartModuleId);
+			start_module_method_table = recur_parsing_stage.GetStartModuleMethodTable();
+		}
 
-		startModuleMethodTable = parser.GetStartModuleMethodTable();
+		// Semantical analyzing. Maybe will not exist
+
+
+		// Interpretating
+		InterpretingStage interpeting_stage(tables, my_dbms, my_network_interface, interpretator_proccessing_code, start_module_method_table);
+
+		interpeting_stage.run();
 	}
-
-	// Семантический анализ. Возможно не нужен
-
-
-	// Интерпретация
-	Interpretator interpetator(tables, m_dbController, m_acceptedClient, startModuleMethodTable);
-
-	interpetator.Run();
-
-	interpetator.ClearInterpretator();
 }

@@ -79,64 +79,66 @@ set(Interpreter_src_dir ${src_dir}/Interpretator)
 
 set(INTERPRETER_HEADER_FILES
 		${Interpreter_header_dir}/Interpretator.h
-		${Interpreter_header_dir}/InterpretatorStages/Interpretator.h
-		${Interpreter_header_dir}/InterpretatorStages/RecursionParser.h
+		${Interpreter_header_dir}/InterpretatorStages/InterpretingStage.h
+		${Interpreter_header_dir}/InterpretatorStages/RecursionParsingStage.h
 		${Interpreter_header_dir}/InterpretatorStages/InterpretatorHeaders.h
-		${Interpreter_header_dir}/InterpretatorStages/GlobalIISMutex.h
-		${Interpreter_header_dir}/OperatorActions/LineAction.h
-		${Interpreter_header_dir}/OperatorActions/AssertAction.h
-		${Interpreter_header_dir}/OperatorActions/DefineAction.h
-		${Interpreter_header_dir}/OperatorActions/GoToMethodEmptyAction.h
-		${Interpreter_header_dir}/OperatorActions/RemoveSpecificVariable.h
-		${Interpreter_header_dir}/OperatorActions/ReturnFromMethodAction.h
-		${Interpreter_header_dir}/OperatorActions/SkipRemoveMethLocalVariable.h
-		${Interpreter_header_dir}/OperatorActions/LineActionClasses.h
-		${Interpreter_header_dir}/OperatorActions/GotoActions/GotoAction.h
-		${Interpreter_header_dir}/OperatorActions/GotoActions/GotoActionWithIf.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/Variable.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/OnlyVariableClasses.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableClasses.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/OperationTypes/CastAction.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/OperationTypes/ComparibleAction.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/OperationTypes/CreateComplexVar.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/OperationTypes/GoToMethod.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/OperationTypes/LogicalAction.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/OperationTypes/LogicalNOT.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/OperationTypes/LogicalTwoArgs.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/OperationTypes/MathAction.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/MethodVariable.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/NamedObject.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/LinkToVariable.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/ComplexVariableTypes/Array.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/ComplexVariableTypes/String_t.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/ComplexVariableTypes/Struct.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/ComplexVariableTypes/Tree.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/ComplexVariableTypes/VariablePath/ArrayIndex.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/ComplexVariableTypes/VariablePath/VariablePath.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SimpleVariableTypes/Void.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SimpleVariableTypes/Bool.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SimpleVariableTypes/Byte.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SimpleVariableTypes/Double.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SimpleVariableTypes/Int.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SimpleVariableTypes/Long.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SimpleVariableTypes/UByte.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SimpleVariableTypes/UInt.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SimpleVariableTypes/ULong.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SpecificVariableTypes/Any.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SpecificVariableTypes/ArrayTemplate.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SpecificVariableTypes/NullObject.h
-		${Interpreter_header_dir}/OperatorArgumentTypes/VariableTypes/SpecificVariableTypes/StackElement.h
+		${Interpreter_header_dir}/LineActions/LineAction.h
+		${Interpreter_header_dir}/LineActions/AssertAction.h
+		${Interpreter_header_dir}/LineActions/DefineAction.h
+		${Interpreter_header_dir}/LineActions/GoToMethodEmptyAction.h
+		${Interpreter_header_dir}/LineActions/RemoveSpecificVariable.h
+		${Interpreter_header_dir}/LineActions/ReturnFromMethodAction.h
+		${Interpreter_header_dir}/LineActions/SkipRemoveMethLocalVariable.h
+		${Interpreter_header_dir}/LineActions/LineActionClasses.h
+		${Interpreter_header_dir}/LineActions/GotoActions/GotoAction.h
+		${Interpreter_header_dir}/LineActions/GotoActions/GotoActionWithIf.h
+		${Interpreter_header_dir}/ExpressionAndVariables/Variable.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariables.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ExpressionActions.h
+		${Interpreter_header_dir}/ExpressionAndVariables/VariableClasses.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ExpressionTypes/ExpressionAction.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ExpressionTypes/CastAction.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ExpressionTypes/ComparibleAction.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ExpressionTypes/CreateComplexVar.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ExpressionTypes/LogicalAction.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ExpressionTypes/LogicalNOT.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ExpressionTypes/LogicalTwoArgs.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ExpressionTypes/MathAction.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/ElementaryVariable.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/Any.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/Void.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/Bool.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/Byte.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/Double.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/Int.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/Long.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/UByte.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/UInt.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SimpleVariableTypes/ULong.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/ComplexVariableTypes/Array.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/ComplexVariableTypes/String_t.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/ComplexVariableTypes/Struct.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/ComplexVariableTypes/Tree.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/LinkToVariable.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/ArrayTemplate.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/GoToMethod.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/MethodVariable.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/NamedObject.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/NullObject.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/StackElement.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/VariablePath/ArrayIndex.h
+		${Interpreter_header_dir}/ExpressionAndVariables/ElementaryVariableTypes/SpecificVariableTypes/VariablePath/VariablePath.h
+		${Interpreter_header_dir}/Tables/NamedVariable.h
 		${Interpreter_header_dir}/Tables/ContainerElementTable.h
 		${Interpreter_header_dir}/Tables/ContainerTable.h
 		${Interpreter_header_dir}/Tables/ModuleTable.h
 		${Interpreter_header_dir}/Tables/MethodTable.h
-		${Interpreter_header_dir}/Tables/StructTable.h
-		${Interpreter_header_dir}/Tables/NamedVariable.h)
+		${Interpreter_header_dir}/Tables/ClassTable.h)
 
 set(INTERPRETER_SRC_FILES
 		${Interpreter_src_dir}/Interpretator.cpp
-		${Interpreter_src_dir}/InterpretatorStages/Interpretator.cpp
-		${Interpreter_src_dir}/InterpretatorStages/RecursionParser.cpp)
+		${Interpreter_src_dir}/InterpretatorStages/InterpretingStage.cpp
+		${Interpreter_src_dir}/InterpretatorStages/RecursionParsingStage.cpp)
 
 
 ##########################################################################

@@ -5,147 +5,150 @@
 
 #include "NamedVariable.h"
 
-using std::string;
+namespace Interpretator {
+	namespace Tables {
+		using std::string;
 
-enum class ContainerTableType : char {
-	Null,
-	ModuleTableType,
-	StructTableType
-};
+		using ExpressionAndVariables::ElementaryVariableTypes::ContainerVariable;
 
-class ContainerTable {
-protected:
-	string m_containerName = "";
-	ContainerTableType m_cTableType = ContainerTableType::Null;
-	vector<ContainerTable*> m_subContainerTables;
-	vector<MethodTable*> m_methodTables;
-	vector<ContainerVariable*> m_globalVariables;
+		enum class ContainerTableType : char {
+			Null,
+			ModuleTableType,
+			ClassTableType
+		};
 
-public:
-	ContainerTable(const string& containerName, const ContainerTableType cTableType) : m_containerName(containerName), m_cTableType(cTableType) {};
+		class ContainerTable {
+		protected:
+			string my_container_name = "";
+			ContainerTableType my_cont_table_type = ContainerTableType::Null;
+			vector<ContainerTable*> my_sub_container_tables;
+			vector<MethodTable*> my_method_tables;
+			vector<ContainerVariable*> my_global_variables;
 
-	string GetContainerName() const {
-		return m_containerName;
-	}
+		public:
+			ContainerTable(const string& container_name, const ContainerTableType cont_table_Type) : my_container_name(container_name), my_cont_table_type(cont_table_type) {};
 
-	ContainerTableType GetContainerTableType() const noexcept {
-		return m_cTableType;
-	}
-
-	/*
-	  Return link to NamedVariable if contains it with name as arg
-	  If not found return nullptr
-	*/
-	ContainerVariable* GetGlobalVariable(const string& glVarName) {
-		for (ContainerVariable* glVar : m_globalVariables) {
-			if (*glVar == glVarName) {
-				return glVar;
+			string get_container_name() const {
+				return my_container_name;
 			}
-		}
 
-		return nullptr;
-	}
-
-	ContainerVariable* GetGlobalVariable(const size_t index) {
-		return m_globalVariables.at(index);
-	}
-
-	/*
-	  Return index of global variable with name
-	  If not found return index greater than size of global variables vector
-	*/
-	size_t GetGlobalVariableIndex(const string& glVarName) const {
-		for (size_t index = 0; index < m_globalVariables.size(); index++) {
-			if (m_globalVariables[index]->GetName() == glVarName) {
-				return index;
+			ContainerTableType get_container_table_type() const {
+				return my_cont_table_type;
 			}
-		}
 
-		return m_globalVariables.size() + 1;
-	}
+			/*
+			  Return link to NamedVariable if contains it with name as arg
+			  If not found return nullptr
+			*/
+			ContainerVariable* get_global_variable(const string& gl_var_name) {
+				for (ContainerVariable* gl_var : my_global_variables) {
+					if (*gl_var == gl_var_name) {
+						return gl_var;
+					}
+				}
 
-	void AddGlobalVariable(ContainerVariable* glVar) {
-		m_globalVariables.push_back(glVar);
-	}
-
-	size_t GetGlobalVariablesCount() const {
-		return m_globalVariables.size();
-	}
-
-	/*
-	  Return lint to SubContainerTable if contains it with name as arg
-	  If not found return nullptr
-	*/
-	ContainerTable* GetSubContainerTable(const string& structName) {
-		for (ContainerTable* structTable : m_subContainerTables) {
-			if (*structTable == structName) {
-				return structTable;
+				return nullptr;
 			}
-		}
 
-		return nullptr;
-	}
-
-	void AddStructTable(ContainerTable* structTable) {
-		m_subContainerTables.push_back(structTable);
-	}
-
-	size_t GetStructTablesCount() const {
-		return m_subContainerTables.size();
-	}
-
-	/*
-	  Return lint to MethodTable with name
-	  If not found return nullptr
-	*/
-	MethodTable* GetMethodTable(const string& methodName) {
-		for (MethodTable* methodTable : m_methodTables) {
-			if (*methodTable == methodName) {
-				return methodTable;
+			ContainerVariable* get_global_variable(const size_t index) {
+				return my_global_variables.at(index);
 			}
-		}
 
-		return nullptr;
-	}
+			/*
+			  Return index of global variable with name
+			  If not found return index greater than size of global variables vector
+			*/
+			size_t get_global_variable_index(const string& gl_var_name) const {
+				for (size_t index = 0; index < my_global_variables.size(); index++) {
+					if (my_global_variables[index]->get_name() == gl_var_name) {
+						return index;
+					}
+				}
 
-	/*
-	  Return link to MethodTable with name and parametrs equal arguments
-	  If not found return nullptr
-	*/
-	MethodTable* GetMethodTable(const string& methodName, const vector<Variable*>& arguments) {
-		for (MethodTable* conTabMethodTable : m_methodTables) {
-			if (*conTabMethodTable == methodName &&
-				conTabMethodTable->IsParametrsEqualArguments(arguments)) {
-				return conTabMethodTable;
+				return my_global_variables.size() + 1;
 			}
-		}
 
-		return nullptr;
+			void add_global_variable(ContainerVariable* gl_var) {
+				my_global_variables.push_back(gl_var);
+			}
+
+			size_t get_global_variables_count() const {
+				return my_global_variables.size();
+			}
+
+			/*
+			  Return lint to SubContainerTable if contains it with name as arg
+			  If not found return nullptr
+			*/
+			ContainerTable* get_sub_container_table(const string& struct_name) {
+				for (ContainerTable* struct_table : my_sub_container_tables) {
+					if (struct_table->get_container_name() == struct_name) {
+						return structTable;
+					}
+				}
+
+				return nullptr;
+			}
+
+			void add_struct_table(ContainerTable* struct_table) {
+				m_subContainerTables.push_back(struct_table);
+			}
+
+			size_t get_struct_tables_count() const {
+				return my_sub_container_tables.size();
+			}
+
+			/*
+			  Return lint to MethodTable with name
+			  If not found return nullptr
+			*/
+			MethodTable* get_method_table(const string& method_name) {
+				for (MethodTable* method_table : my_method_tables) {
+					if (*method_table == method_name) {
+						return method_table;
+					}
+				}
+
+				return nullptr;
+			}
+
+			/*
+			  Return link to MethodTable with name and parametrs equal arguments
+			  If not found return nullptr
+			*/
+			MethodTable* get_method_table(const string& method_name, const vector<Variable*>& arguments) {
+				for (MethodTable* con_tab_method_table : my_method_tables) {
+					if (con_tab_method_table->get_method_name() == method_name &&
+						con_tab_method_table->is_parametrs_equal_arguments(arguments)) {
+						return con_tab_method_table;
+					}
+				}
+
+				return nullptr;
+			}
+
+			size_t get_method_tables_count() const {
+				return my_method_tables.size();
+			}
+
+			void add_method_table(MethodTable* method_table) {
+				my_method_tables.push_back(method_table);
+			}
+
+
+			~ContainerTable() {
+				for (ContainerVariable* gl_var : my_global_variables) {
+					delete gl_var;
+				}
+
+				for (ContainerTable* struct_table : my_sub_container_tables) {
+					delete structTable;
+				}
+
+				for (MethodTable* method_table : my_method_tables) {
+					delete method_table;
+				}
+			}
+		};
 	}
-
-	size_t GetMethodTablesCount() const {
-		return m_methodTables.size();
-	}
-
-	void AddMethodTable(MethodTable* methodTable) {
-		m_methodTables.push_back(methodTable);
-	}
-
-	bool operator==(const string& containerName) const noexcept {
-		return m_containerName == containerName;
-	}
-
-	~ContainerTable() {
-		for (ContainerVariable* glVar : m_globalVariables) {
-			delete glVar;
-		}
-
-		for (ContainerTable* structTable : m_subContainerTables) {
-			delete structTable;
-		}
-
-		for (MethodTable* methodTable : m_methodTables) {
-			delete methodTable;
-		}
-	}
-};
+}

@@ -1,51 +1,37 @@
 #pragma once
-#include "DbController.h"
-#include "AcceptedClient.h"
+#include "DBMS.h"
+#include "NetworkInterface.h"
 
-#include "RecursionParser.h"
-//#include "SyntacticalAnalyzer.h"
-#include "Interpretator.h"
+#include "RecursionParsingStage.h"
+//#include "SyntacticalAnalyzingStage.h"
+#include "InterpretingStage.h"
 
-#ifdef MULTIUSERS
-extern std::mutex globalMutex;
-#endif
 
-using std::shared_ptr;
+namespace Interpretator {
+	using std::shared_ptr;
 
-class IIS {
-private:
-	shared_ptr<DbController> m_dbController;
-	shared_ptr<AcceptedClient> m_acceptedClient;
-	SemanticWeb m_operatingSW;
-	SemanticWeb m_sessionSW;
-	vertexIdType m_requestStartModuleId = MainModuleIdInSW;
+	using DBMS::DBMS;
+	using DBMS::DbController;
+	using NetworkInterface::NetworkInterface;
 
-public:
-	IIS(shared_ptr<DbController> dbController, shared_ptr<AcceptedClient> acceptedClient)
-		: m_dbController(dbController),
-		m_acceptedClient(acceptedClient) {
-		m_operatingSW.fullByBasicElements();
+	class Interpretator final {
+	private:
+		shared_ptr<DBMS> my_dbms;
+		shared_ptr<NetworkInterface> my_network_interface;
+
+		shared_ptr<unsigned char> interpretator_proccessing_code = 0;
+		DBMS::ModuleDbController::objectIdType my_request_start_module_id = 1;
+
+
+	public:
+		Interpretator(shared_ptr<DBMS> dbms, shared_ptr<NetworkInterface> network_interface);
+
+
+		void run_interpreting();
+
+		void stop_interpreting();
+
+
+		~Interpretator();
 	};
-
-#ifdef UNIT_TESTS
-	// Only for unit tests
-	void RunExecute(string request, string addText);
-
-	// Only for unit tests
-	string GetResponce() {
-		return m_dbController->ReadVertex(SWObjectOutputSystemResponse)->GetText();
-	}
-#endif
-
-	void RunInterpret();
-
-#ifdef MULTIUSERS
-	shared_ptr<AcceptedClient> GetAcceptedClient() {
-		return m_acceptedClient;
-	}
-#endif // MULTIUSERS
-
-	~IIS() {
-		m_operatingSW.Clear();
-	}
-};
+}
