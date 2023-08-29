@@ -4,7 +4,7 @@
 
 #include <boost/asio.hpp>
 
-#include "EncodingConvertor.h"
+#include "../../libruaries/EncodingConvertorActions/EncodingConvertor.h"
 
 namespace NetworkInterface {
 	using std::cout, std::endl;
@@ -19,24 +19,24 @@ namespace NetworkInterface {
 
 	class NetworkInterface final {
 	private:
-		tcp::socket m_clientSocket;
+		tcp::socket my_client_socket;
 
 	public:
-		NetworkInterface(boost::asio::io_service& io_service) : m_clientSocket(io_service) {};
+		NetworkInterface(boost::asio::io_service& io_service) : my_client_socket(io_service) {};
 
-		tcp::socket& sock() noexcept;
+		tcp::socket& sock();
 
-		bool IsOpen();
+		bool is_open();
 
-		void SendMsg(const string& message);
+		void send_msg(const string& message);
 
-		string ReceiveMsg();
+		string receive_msg();
 
-		void DisconnectClient();
+		void disconnect_client();
 
 		~NetworkInterface() {
-			if (m_clientSocket.is_open()) {
-				m_clientSocket.close();
+			if (my_client_socket.is_open()) {
+				my_client_socket.close();
 			}
 		}
 	};
