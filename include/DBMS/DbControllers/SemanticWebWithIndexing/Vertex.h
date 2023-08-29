@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <string>
 
 namespace DBMS {
@@ -11,7 +12,7 @@ namespace DBMS {
 		struct Vertex final {
 		public:
 			vertexIdType my_id = 0;
-			string my_text = "";
+			mutable string my_text = "";
 
 
 			Vertex();
@@ -24,6 +25,10 @@ namespace DBMS {
 			bool operator==(const vertexIdType vertex_id) const;
 
 			bool operator==(const string& text) const;
+
+			friend std::ostream& operator<<(std::ostream& ostream, const Vertex& vertex);
+
+			friend std::istream& operator>>(std::istream& istream, Vertex& vertex);
 		};
 	}
 }

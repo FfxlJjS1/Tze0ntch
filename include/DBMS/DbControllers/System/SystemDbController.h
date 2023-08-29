@@ -9,15 +9,6 @@ namespace DBMS {
 	namespace SystemDbController {
 		using std::string;
 		using std::vector;
-		
-
-		enum dbStructTypes : char8_t {
-			UndefinedDatabaseController = 0,
-			SystemDatabaseController = 1,
-			CustomizableDatabaseController = 2,
-			KeyValueDatabaseController = 3,
-			RelationalDatabaseController = 4
-		};
 
 		struct sys_db_record {
 			dbIdType db_id = 0;

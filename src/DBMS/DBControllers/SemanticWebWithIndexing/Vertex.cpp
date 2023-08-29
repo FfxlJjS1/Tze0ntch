@@ -18,5 +18,23 @@ namespace DBMS {
 		bool Vertex::operator==(const string& text) const {
 			return my_text == text;
 		}
+
+		std::ostream& operator<<(std::ostream& ostream, const Vertex& vertex) {
+			ostream.write((char*)(&(vertex.my_id)), sizeof(vertex.my_id));
+
+			ostream << vertex.my_text.c_str();
+
+			return ostream;
+		}
+
+		std::istream& operator>>(std::istream& istream, Vertex& vertex) {
+			auto& vertex_id = vertex.my_id;
+			auto& text = vertex.my_text;
+
+			istream.read((char*)&vertex_id, sizeof(vertexIdType));
+			std::getline(istream, text, '\0');
+
+			return istream;
+		}
 	}
 }

@@ -24,8 +24,8 @@ namespace DBMS {
 		else if (database_struct_type == dbStructTypes::CustomizableDatabaseController) {
 			dbController = new CustomizableDbController::CustomizableDbController(database_id, database_name);
 		}
-		else if (database_struct_type == dbStructTypes::KeyValueDatabaseController) {
-			dbController = new KeyValueDBController::KeyValueDbController(database_id, database_name);
+		else if (database_struct_type == dbStructTypes::SemanticWebWithIndexingDbController) {
+			dbController = new SemanticWebWithIndexingDbController::SemanticWebWithIndexingDbController(database_id, database_name);
 		}
 		else {
 			return nullptr;
@@ -37,26 +37,32 @@ namespace DBMS {
 	}
 		
 
-	DBMS::DBMS(string database_folder) {
-		my_databases_folder = database_folder;
+	DBMS::DBMS(string database_directory_path) {
+		my_databases_directory_path = database_directory_path;
+		
+		string path_to_system_db = my_databases_directory_path + "\\" + system_db_name;
 
-		my_db_controllers.insert({ 1, new SystemDbController::SystemDbController(my_databases_folder + "\\__system_db.mdd") });
+		if (!std::filesystem::exists(path_to_system_db)) {
+			SystemDbController::SystemDbController::init_database_file(path_to_system_db);
+		}
+
+		my_db_controllers.insert({ 1, new SystemDbController::SystemDbController(path_to_system_db) });
 	}
 
 
 	void DBMS::create_database(string database_name, dbStructTypes database_struct_type) {
-		string database_file_path = my_databases_folder + "\\" + database_name + ".mdd";
+		string database_file_path = my_databases_directory_path + "\\" + database_name + ".mdd";
 
 		switch (database_struct_type)
 		{
-		case SystemDbController::SystemDatabaseController:
+		case dbStructTypes::SystemDatabaseController:
 			SystemDbController::SystemDbController::init_database_file(database_file_path);
 			break;
-		case SystemDbController::CustomizableDatabaseController:
+		case dbStructTypes::CustomizableDatabaseController:
 			CustomizableDbController::CustomizableDbController::init_database_file(database_file_path);
 			break;
-		case SystemDbController::KeyValueDatabaseController:
-			KeyValueDBController::KeyValueDbController::init_database_file(database_file_path);
+		case dbStructTypes::SemanticWebWithIndexingDbController:
+			SemanticWebWithIndexingDbController::SemanticWebWithIndexingDbController::init_database_file(database_file_path);
 			break;
 		}
 	}
@@ -140,7 +146,7 @@ namespace DBMS {
 
 		exclude_database_from_sys_db(database_id);
 
-		std::remove((my_databases_folder + "\\" + database_file_name + ".mdd").c_str());
+		std::remove((my_databases_directory_path + "\\" + database_file_name + ".mdd").c_str());
 	}
 
 	void DBMS::exclude_and_delete_database_file(string database_name) {
@@ -149,7 +155,7 @@ namespace DBMS {
 		if (database_id > 1) {
 			exclude_database_from_sys_db(database_id);
 
-			std::remove((my_databases_folder + "\\" + database_name + ".mdd").c_str());
+			std::remove((my_databases_directory_path + "\\" + database_name + ".mdd").c_str());
 		}
 	}
 

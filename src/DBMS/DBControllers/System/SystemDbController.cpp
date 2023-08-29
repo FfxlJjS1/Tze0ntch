@@ -5,7 +5,7 @@ namespace DBMS {
 		void SystemDbController::read_records_from_db_file() {
 			my_db_records.clear();
 
-			my_database_stream.seekg(0, ios_base::beg);
+			my_database_stream.seekg(sizeof(dbIdType), ios_base::beg);
 
 			while (!my_database_stream.eof()) {
 				sys_db_record new_record = read_record_from_db_file();

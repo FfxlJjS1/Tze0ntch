@@ -1,7 +1,7 @@
 #include "../../../include/DBMS/DbControllers/DbController.h"
 
 namespace DBMS {
-	DbController::DbController(const dbIdType database_id, const std::string database_name) {
+	DbController::DbController(const dbIdType database_id, const std::string& database_name) {
 		my_datase_id = database_id;
 		my_database_file_name = database_name;
 	}

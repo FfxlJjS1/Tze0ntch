@@ -7,18 +7,19 @@
 
 #include "DbControllers/DbController.h"
 #include "DbControllers/System/SystemDbController.h"
+#include "DbControllers/Module/ModuleDbController.h"
+#include "DbControllers/SemanticWebWithIndexing/SemanticWebWithIndexingDbController.h"
 #include "DbControllers/Customizable/CustomizableDbController.h"
-#include "DbControllers/KeyValue/KeyValueDbController.h"
 
 namespace DBMS {
 	using std::string;
 	using std::vector;
-	using SystemDbController::dbStructTypes;
 
 	class DBMS final {
 	private:
 		std::map<dbIdType, DbController*> my_db_controllers;
-		string my_databases_folder;
+		string my_databases_directory_path;
+		const string system_db_name = "__system_mdd";
 
 		/*
 		* Get id of the database has name as databaseName
@@ -54,7 +55,7 @@ namespace DBMS {
 		DbController* get_database_controller(string database_name);
 		
 
-		bool include_database_into_sys_db(string database_name, dbStructTypes database_struct_type);
+		dbIdType include_database_into_sys_db(string database_name, dbStructTypes database_struct_type);
 
 
 		void exclude_database_from_sys_db(dbIdType database_id);

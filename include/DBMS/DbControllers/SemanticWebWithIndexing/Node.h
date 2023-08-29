@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <vector>
 #include <set>
 #include <functional>
@@ -15,7 +16,7 @@ namespace DBMS {
 		private:
 			vertexIdType my_node_id;
 
-			std::set<SubNode> my_sub_nodes;
+			mutable std::set<SubNode> my_sub_nodes;
 
 			vector<SubNode> find_by_predicate(std::function<bool(SubNode& sub_node)> predicate) const;
 
@@ -50,7 +51,12 @@ namespace DBMS {
 			vector<SubNode> find_by_second_vertex_ids(const vector<vertexIdType>& second_vertex_ids) const;
 
 
-			vector<SubNode> find_by_vertex_id_any_where(const vertexIdType first_vertex_id, const vertexIdType second_vertex_id) const;
+			vector<SubNode> find_by_vertex_ids_any_where(const vertexIdType first_vertex_id, const vertexIdType second_vertex_id) const;
+
+
+			friend std::ostream& operator<<(std::ostream& ostream, const Node& node);
+
+			friend std::istream& operator>>(std::istream& istream, Node*& vertex);
 		};
 	}
 }

@@ -12,5 +12,5 @@ Documentation contains in a directory 'doc'
 
 
 ### Requirements
-- C++ 17 and more
+- C++ 20 and more
 - Boost (Asio and Ptree_property)

@@ -11,6 +11,15 @@ namespace DBMS {
 	using std::streampos;
 	typedef uint16_t dbIdType;
 
+	enum dbStructTypes : char8_t {
+		UndefinedDatabaseController = 0,
+		SystemDatabaseController = 1,
+		ModuleDatabaseController = 2,
+		CustomizableDatabaseController = 3,
+		SemanticWebWithIndexingDbController = 4,
+		RelationalDatabaseController = 5
+	};
+
 	class DbController {
 	protected:
 		dbIdType my_datase_id;
@@ -24,7 +33,7 @@ namespace DBMS {
 		void close_database_file();
 
 	public:
-		DbController(const dbIdType database_id, const std::string database_name);
+		DbController(const dbIdType database_id, const std::string& database_name);
 
 
 		dbIdType get_database_id() const;
